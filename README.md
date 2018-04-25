@@ -1,15 +1,29 @@
-# Azure Functions on Linux custom image tutorial sample project 
+# Overview
 
-The code in the this repository supports the Azure Functions custom image tutorial for Linux: [Create a function on Linux using a custom image](https://docs.microsoft.com/azure/azure-functions/functions-create-function-linux-custom-image). 
+https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-function-linux-custom-image
 
-There are three HTTP triggered functions, one each for C#, F#, and JavaScript. These functions are generated from the same HTTP triggered function templates available in the Azure portal. 
+# Build Image
 
-This repo is designed to be deployed to Azure Functions on Linux as a custom container from a Docker image. 
+docker build --tag jorgefatta/mydockerimage:v1.0.0 .
 
-### Dockerfile
+# Run 
 
-This project contains a [Dockerfile] that describes the environment that is required to run the function app on Linux. 
- 
-When hosting an image in a private container registry, you should add the connection settings to the function app by using **ENV** variables in the [Dockerfile]. Because the tutorial that uses this repository cannot guarantee that you use a private registry, the connection settings are added after the deployment by using the Azure CLI as a security best practice. 
+docker run -p 8080:80 -it jorgefatta/mydockerimage:v1.0.0
 
-[Dockerfile]: Dockerfile
+# Inspect image contents
+
+## Inspect container
+
+https://stackoverflow.com/questions/20813486/exploring-docker-containers-file-system
+docker export wizardly_hopper > contents.tar
+
+## Inspect image
+sudo docker image save jorgefatta/mydockerimage:v1.0.0 > c:/image.tar
+
+
+# TO-DO
+
+1. Pptr is running on the container when built including the node_modules inside the js function dir.
+    Figure out how to install npm packages from the docker file
+1. Write result as pdf directly
+1. The fx is being called twice (?)
