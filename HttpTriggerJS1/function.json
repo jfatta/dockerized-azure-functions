@@ -1,7 +1,9 @@
 {
   "disabled": false,
-  "bindings": [
-    {
+  "tracing": {
+    "consoleLevel": "verbose"
+  },
+  "bindings": [{
       "authLevel": "anonymous",
       "type": "httpTrigger",
       "direction": "in",
