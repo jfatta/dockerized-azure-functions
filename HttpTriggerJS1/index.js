@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const fs = require('fs');
 
 const puppeteerOptions = {
     executablePath: 'google-chrome-unstable',
@@ -32,14 +33,11 @@ module.exports = async function (context, req) {
         context.log("Closing puppeteer browser...");
         await browser.close();
 
+        context.log("Reading PDF...");
+        var contents = fs.readFileSync('result.pdf');
         context.res = {
-            status: 200,
-            body: '<root>body</root>',
-            headers: {
-                'Content-Type': 'text/xml'
-            },
-            isRaw: true
-        }
+            body: contents
+        };
 
     } else {
         context.res = {
