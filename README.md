@@ -8,7 +8,7 @@ docker build --tag jorgefatta/mydockerimage:v1.0.0 .
 
 ## Run 
 
-docker run -p 8080:80 -it jorgefatta/mydockerimage:v1.0.0
+docker run --rm -v c:/Users/jorge:/output -p 8080:80 -it jorgefatta/mydockerimage:v1.0.0
 
 ## Publish
 
