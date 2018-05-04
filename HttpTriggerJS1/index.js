@@ -10,10 +10,7 @@ module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
     if (req.query.name || (req.body && req.body.name)) {
-        context.res = {
-            // status: 200, /* Defaults to 200 */
-            body: "Hello " + (req.query.name || req.body.name)
-        };
+       
 
         context.log("launching puppeteer...");
         const browser = await puppeteer.launch( puppeteerOptions ); // skip options if running outside the docker container
@@ -25,7 +22,7 @@ module.exports = async function (context, req) {
         await page.emulateMedia('screen');
 
         await page.pdf({
-            path: 'result.pdf',
+            path: '/output/result.pdf',
             format: 'letter',
             printBackground: true
         });
@@ -34,9 +31,10 @@ module.exports = async function (context, req) {
         await browser.close();
 
         context.log("Reading PDF...");
-        var contents = fs.readFileSync('result.pdf');
+        
         context.res = {
-            body: contents
+            // status: 200, /* Defaults to 200 */
+            body: "Hello " + (req.query.name || req.body.name)
         };
 
     } else {
